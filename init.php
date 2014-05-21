@@ -1,5 +1,10 @@
 <?php
 
+require('helpers.php');
+
+/* Require the rigWP class */
+require('rigWP_template_loader.class.php');
+
 /* Require the rigWP class */
 require('rigWP.class.php');
 
