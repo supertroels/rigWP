@@ -27,6 +27,8 @@ class rigWP_support_woo_subshops {
 			get_stylesheet_directory().'/'.$rigWP->templates_folder.'/subshops/',
 			get_template_directory().'/'.$rigWP->templates_folder.'/subshops/'.$shop->post_name.'/',
 			get_template_directory().'/'.$rigWP->templates_folder.'/subshops/',
+			get_stylesheet_directory().'/'.$rigWP->templates_folder.'/',
+			get_template_directory().'/'.$rigWP->templates_folder.'/'
 			);
 		$dirs = $newdirs+$dirs;
 
