@@ -35,5 +35,27 @@ function die_aprint($print){
 }
 
 
+/**
+ * undocumented function
+ *
+ * @return void
+ **/
+function rigwp(){
+	$backtrace = debug_backtrace();
+	$tmpl = $backtrace[1]['args'][0];
+	$tmpl = explode('/', $tmpl);
+	$tmpl = $tmpl[count($tmpl) - 1];
+	$tmpl = str_ireplace('.php', '', $tmpl);
+	
+	$fix = array('header', 'footer');
+	if(in_array($tmpl, $fix)){
+		global $rigWP;
+		if($tmpl = $rigWP->get_template($tmpl, false)){
+			require($tmpl);
+		}
+	}
+
+}
+
 
 ?>

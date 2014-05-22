@@ -403,7 +403,7 @@ class rigWP_template_loader{
 	 * @param bool $require_once Whether to require_once or require. Default true. Has no effect if $load is false.
 	 * @return string The template filename if one is located.
 	 */
-	function locate_template($template_names, $load = false, $require_once = true ) {
+	function locate_template($template_names, $look_in_root = true) {
 		global $rigWP;
 
 		$located = '';
@@ -414,8 +414,11 @@ class rigWP_template_loader{
 			$dirs = array();
 			$dirs[] = STYLESHEETPATH.'/'.$rigWP->templates_folder.'/';
 			$dirs[] = TEMPLATEPATH.'/'.$rigWP->templates_folder.'/';
-			$dirs[] = STYLESHEETPATH.'/';
-			$dirs[] = TEMPLATEPATH.'/';
+			
+			if($look_in_root){
+				$dirs[] = STYLESHEETPATH.'/';
+				$dirs[] = TEMPLATEPATH.'/';
+			}
 
 			foreach($dirs as $dir){
 				if ( file_exists($dir.$template_name)) {
@@ -424,9 +427,6 @@ class rigWP_template_loader{
 				}
 			}
 		}
-
-		if ( $load && '' != $located )
-			load_template( $located, $require_once );
 
 		return $located;
 	}

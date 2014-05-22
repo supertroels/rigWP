@@ -145,10 +145,10 @@ class rigWP {
 	 *
 	 * @return void
 	 **/
-	public function get_template($template){
+	public function get_template($template, $look_in_root = true){
 		$template = str_ireplace('.php', '', $template);
 		$template = $template.'.php';
-		return $this->template->locate_template($template);
+		return $this->template->locate_template($template, $look_in_root);
 	}
 
 	/**
