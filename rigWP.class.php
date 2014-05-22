@@ -19,9 +19,12 @@ class rigWP {
 
 		$this->set_dirs();
 		$this->template = new rigWP_template_loader();
+		$this->support = new rigWP_support();
 		
 		add_filter('template_include', array($this, 'template_redirect'), 1, 1);
 		add_action('init', array($this, 'init'));
+
+		$this->support->init();
 
 	}
 
@@ -87,13 +90,15 @@ class rigWP {
 			$tmpl .= '-'.$name;
 		}
 		$tmpl .= '.php';
-		
+
 		if($tmpl = $this->template->locate_template($tmpl)){
 			do_action('get_header');
 			load_template($tmpl);
 		}
-		
-		get_header($name);
+		else{
+			get_header($name);
+		}
+	
 	}
 
 
@@ -116,8 +121,9 @@ class rigWP {
 			do_action('get_footer');
 			load_template($tmpl);
 		}
-		
-		get_footer($name);
+		else{	
+			get_footer($name);
+		}
 	}
 
 
