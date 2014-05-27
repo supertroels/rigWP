@@ -7,7 +7,7 @@ class rigWP_support {
 	
 	function init(){
 
-		$support_plugins = array('woo_subshops');
+		$support_plugins = array();
 
 
 		$this->handlers = (object) array();

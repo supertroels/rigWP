@@ -21,7 +21,7 @@ class rigWP {
 		$this->template = new rigWP_template_loader();
 		$this->support = new rigWP_support();
 		
-		add_filter('template_include', array($this, 'template_redirect'), 1, 1);
+		add_filter('template_include', array($this, 'set_template_vars'), 999, 1);
 		add_action('init', array($this, 'init'));
 
 		$this->support->init();
@@ -44,30 +44,9 @@ class rigWP {
 	 *
 	 * @return void
 	 **/
-	function template_redirect($template){
+	function set_template_vars($template){
 
-		if     ( is_404()            && $tmpl = $this->template->get_404_template()            ) :
-		elseif ( is_search()         && $tmpl = $this->template->get_search_template()         ) :
-		elseif ( is_front_page()     && $tmpl = $this->template->get_front_page_template()     ) :
-		elseif ( is_home()           && $tmpl = $this->template->get_home_template()           ) :
-		elseif ( is_post_type_archive() && $tmpl = $this->template->get_post_type_archive_template() ) :
-		elseif ( is_tax()            && $tmpl = $this->template->get_taxonomy_template()       ) :
-		elseif ( is_attachment()     && $tmpl = $this->template->get_attachment_template()     ) :
-			remove_filter('the_content', 'prepend_attachment');
-		elseif ( is_single()         && $tmpl = $this->template->get_single_template()         ) :
-		elseif ( is_page()           && $tmpl = $this->template->get_page_template()           ) :
-		elseif ( is_category()       && $tmpl = $this->template->get_category_template()       ) :
-		elseif ( is_tag()            && $tmpl = $this->template->get_tag_template()            ) :
-		elseif ( is_author()         && $tmpl = $this->template->get_author_template()         ) :
-		elseif ( is_date()           && $tmpl = $this->template->get_date_template()           ) :
-		elseif ( is_archive()        && $tmpl = $this->template->get_archive_template()        ) :
-		elseif ( is_comments_popup() && $tmpl = $this->template->get_comments_popup_template() ) :
-		elseif ( is_paged()          && $tmpl = $this->template->get_paged_template()          ) :
-		elseif ( $tmpl = $this->template->get_index_template() ) :
-		endif;
-
-		if($tmpl){
-			$template = $tmpl;
+		if($template){
 			$path = pathinfo($template);
 			$this->template_name = $path['filename'];
 		}
@@ -187,7 +166,7 @@ class rigWP {
 		$styleurl  = get_stylesheet_directory_uri().'/';
 		$templpath = get_template_directory().'/';
 		$templurl  = get_template_directory_uri().'/';
-	
+
 		if(file_exists($stylepath.$file))
 			return $styleurl.$file;
 		elseif(file_exists($templpath.$file))
@@ -200,5 +179,5 @@ class rigWP {
 }
 
 $rigWP = new rigWP();
-
+$rigwp = &$rigWP;
 ?>
