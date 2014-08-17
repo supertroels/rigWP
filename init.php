@@ -11,7 +11,8 @@ require('support/rigWP_support.class.php');
 /* Require the rigWP class */
 require('rigWP.class.php');
 
-/* Require the theme init file  */
-require(get_stylesheet_directory().'/'.$rigWP->theme_folder.'/init.php');
+/* Include the theme init file if it exists  */
+$init_file = rigwp()->get_path(rigwp()->theme_folder.'/init.php');
+include_once($init_file);
 
 ?>
